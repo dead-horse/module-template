@@ -24,6 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "commander": "~2.3.0",
+    "dotfile-config": "~1.0.0",
     "mkdirp": "~0.5.0",
     "multiline": "~0.3.4",
     "prompt": "~0.2.13"

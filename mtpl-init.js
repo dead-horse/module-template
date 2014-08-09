@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 
-var Config = require('./config');
+var dotfile = require('dotfile-config')('.mtplrc');
+var mkdirp = require('mkdirp');
 var prompt = require('prompt');
 var path = require('path');
-var mkdirp = require('mkdirp');
 var fs = require('fs');
 
 var templateDir = path.join(__dirname, 'templates');
-var destDir = path.resolve('.' || process.argv[2]);
+var destDir = path.resolve(process.argv[2] || '.');
 mkdirp.sync(destDir);
 
-var config = Config.get();
+var config = dotfile.get();
 
 var users = config.users || {};
 if (!users || !Object.keys(users).length) {
@@ -34,7 +34,8 @@ var schema = {
 
     name: {
       description: 'project name',
-      required: true
+      required: true,
+      default: path.basename(destDir)
     },
     repo: {
       description: 'project git repo <org/name>',

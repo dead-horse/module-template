@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-var prompt = require('prompt');
-var pkg = require('./package.json');
-var Config = require('./config');
+var dotfile = require('dotfile-config')('.mtplrc');
 var multiline = require('multiline');
+var pkg = require('./package.json');
+var prompt = require('prompt');
 
-var config = Config.get();
+var config = dotfile.get();
 
 var actions = {
   add: add,
@@ -18,7 +18,7 @@ var actions = {
 };
 
 var action = process.argv[2];
-var config = Config.get();
+var config = dotfile.get();
 
 if (!actions[action]) {
   usage();
@@ -78,7 +78,7 @@ function add() {
     }
     config.users[result.id] = result;
 
-    Config.set(config);
+    dotfile.set(config);
     console.log('add user success');
     process.exit(0);
   });
@@ -101,7 +101,7 @@ function remove() {
     return console.log('user template %s not exist\n', id);
   }
   delete config.users[id];
-  Config.set(config);
+  dotfile.set(config);
   console.log('remove user template %s success\n', id);
 }
 
@@ -149,7 +149,7 @@ function edit() {
   prompt.get(schema, function (err, result) {
     result.id = id;
     config.users[id] = result;
-    Config.set(config);
+    dotfile.set(config);
     console.log('edit template %s success\n', id);
     process.exit(0);
   });
@@ -196,7 +196,7 @@ function def() {
   }
 
   config.default = id;
-  Config.set(config);
+  dotfile.set(config);
   console.log('set default user template to %s\n', id);
 }
 /**
