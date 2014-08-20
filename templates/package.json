@@ -24,5 +24,8 @@
   },
   "devDependencies": {
     "autod": "~0.3.2"
+  },
+  "engine": {
+    "node": ">=0.10"
   }
 }
