@@ -33,10 +33,7 @@ test-travis:
 		$(TESTS) \
 		--bail
 
-jshint:
-	@./node_modules/.bin/jshint ./
-
-autod:
+autod: install
 	@node_modules/.bin/autod -w -e example.js --prefix=~
 	@$(MAKE) install
 

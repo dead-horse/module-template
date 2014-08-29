@@ -31,8 +31,6 @@ $ npm install {{ name }}
 
 ## Usage
 
-## Examples
-
 ### License
 
 MIT
