@@ -4,6 +4,7 @@ var dotfile = require('dotfile-config')('.mtplrc');
 var multiline = require('multiline');
 var pkg = require('./package.json');
 var prompt = require('prompt');
+var path = require('path');
 
 var config = dotfile.get();
 
@@ -56,11 +57,16 @@ function add() {
       git: {
         description: 'repository git host',
         required: true,
-        default: 'https://github.com/'
+        default: 'git@github.com'
       },
       url: {
         description: 'url',
         require: false
+      },
+      template: {
+        description: 'template dirctory for this user',
+        required: true,
+        default: path.join(__dirname, 'template')
       }
     }
   };
@@ -134,12 +140,17 @@ function edit() {
       git: {
         description: 'repository git host',
         required: true,
-        default: user.git || 'https://github.com'
+        default: user.git || 'git@github.com'
       },
       url: {
         description: 'url',
         require: false,
         default: user.url
+      },
+      template: {
+        description: 'template dirctory for this user',
+        require: false,
+        default: user.template || path.join(__dirname, 'template')
       }
     }
   };
@@ -167,8 +178,8 @@ function list() {
 
   for (var id in users) {
     var user = users[id];
-    console.log('%s:\n  user name: %s\n  email: %s\n  git: %s\n  url: %s\n',
-                id, user.name, user.email, user.git, user.url);
+    console.log('%s:\n  user name: %s\n  email: %s\n  git: %s\n  url: %s\n  template: %s\n',
+                id, user.name, user.email, user.git, user.url, user.template);
   }
 
   if (config.default) {
