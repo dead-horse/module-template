@@ -23,13 +23,13 @@
   "author": "dead_horse <dead_horse@qq.com>",
   "license": "MIT",
   "dependencies": {
-    "commander": "~2.3.0",
+    "commander": "~2.4.0",
     "dotfile-config": "~1.0.0",
     "mkdirp": "~0.5.0",
-    "multiline": "~0.3.4",
-    "prompt": "~0.2.13"
+    "multiline": "~1.0.1",
+    "prompt": "~0.2.14"
   },
   "devDependencies": {
-    "autod": "^0.3.2"
+    "autod": "1"
   }
 }
