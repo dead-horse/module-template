@@ -1,4 +1,4 @@
-TESTS = test/*.test.js
+TESTS =  $(shell ls -S `find test -type f -name "*.test.js" -print`)
 REPORTER = tap
 TIMEOUT = 3000
 MOCHA_OPTS =
