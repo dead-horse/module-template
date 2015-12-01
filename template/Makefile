@@ -3,11 +3,17 @@ REPORTER = tap
 TIMEOUT = 3000
 MOCHA_OPTS =
 
+export PATH := node_modules/.bin:$(PATH)
+export SHELL := /bin/bash
+
 install:
 	@npm install --registry=http://registry.npm.taobao.org
 
+standard:
+	@standard
+
 test:
-	@NODE_ENV=test ./node_modules/mocha/bin/mocha --harmony \
+	@NODE_ENV=test mocha \
 		--reporter $(REPORTER) \
 		--timeout $(TIMEOUT) \
 		--require should \
@@ -15,7 +21,7 @@ test:
 		$(TESTS)
 
 test-cov:
-	@NODE_ENV=test node --harmony \
+	@NODE_ENV=test node \
 		node_modules/.bin/istanbul cover \
 		./node_modules/.bin/_mocha \
 		-- -u exports \
@@ -24,7 +30,8 @@ test-cov:
 		--bail
 
 test-travis:
-	@NODE_ENV=test node --harmony \
+	@$(MAKE) standard
+	@NODE_ENV=test node \
 		node_modules/.bin/istanbul cover \
 		./node_modules/.bin/_mocha \
 		--report lcovonly \
@@ -34,8 +41,8 @@ test-travis:
 		--bail
 
 autod: install
-	@node_modules/.bin/autod -w --prefix="~" \
-  -D mocha,istanbul-harmony,should
+	@autod -w --prefix="~" \
+  -D mocha,istanbul,should,standard
 	@$(MAKE) install
 
 .PHONY: test
